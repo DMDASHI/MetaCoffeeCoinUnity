@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5ae1b34bb55b346b3af0b63445be96, type: 3}
+  m_Name: Cafe
+  m_EditorClassIdentifier: Assembly-CSharp::PlantObject
+  plantName: Coffee
+  plantStages:
+  - {fileID: -5500499418243019099, guid: ea7f329876cf93547be6aa01f3c89d54, type: 3}
+  - {fileID: -4499412901445083731, guid: 1711a71e23e6a734c836b98feade3042, type: 3}
+  - {fileID: -6827950885255421767, guid: 9ac821aed6007fd439c241a94f065917, type: 3}
+  - {fileID: -3536562804574438796, guid: 499ff846e179f8045960aa7977b5c34a, type: 3}
+  - {fileID: -2933993384908437591, guid: 7750c0c0e7fc59b408b01e701124fe76, type: 3}
+  - {fileID: 2417899183891269797, guid: 36c74caebb8c60a4889838f534599584, type: 3}
