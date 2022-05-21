@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 namespace Web3.Operations
 {
@@ -21,16 +22,22 @@ namespace Web3.Operations
         void Start()
         {
             account = PlayerPrefs.GetString("Account");
-            ShowBalance();
+            Show();
         }
 
-        async private void ShowBalance()
+        private async void Show()
+        {
+            await ShowBalance();
+        }
+
+        private async Task ShowBalance()
         {
             BigInteger balanceOf = await ERC20.BalanceOf(chain, network, contract, account);
             string balancecad = balanceOf.ToString();
             string symbol = await ERC20.Symbol(chain, network, contract);
             balance.text = balancecad.Substring(0, balancecad.Length - 18) + "." + balancecad.Substring(balancecad.Length - 18, 2) + " " + symbol;
         }
+
     }
 
 }
