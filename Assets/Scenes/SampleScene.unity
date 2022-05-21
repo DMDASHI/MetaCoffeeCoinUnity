@@ -1387,10 +1387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedPlant: {fileID: 0}
-  isPlanting: 0
   plantColor: {r: 0, g: 1, b: 0, a: 1}
   cancelColor: {r: 1, g: 0, b: 0, a: 1}
-  isSelected: 0
   selectedTool: 0
   buttonsImg:
   - {fileID: 1169163897}

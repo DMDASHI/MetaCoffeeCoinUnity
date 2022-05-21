@@ -4,19 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Web3WalletLogOut : MonoBehaviour
+namespace Web3.Operations
 {
-
-    [DllImport("__Internal")]
-    private static extern string Disconnect();
-
-    [DllImport("__Internal")]
-    private static extern void Web3Disconect();
-    public void OnLogOut()
+    public class Web3WalletLogOut : MonoBehaviour
     {
-         Web3Disconect();
-         
-         PlayerPrefs.SetString("Account", "");
-         SceneManager.LoadScene(0);
-    } 
+
+        public void OnLogOut()
+        {
+
+            PlayerPrefs.SetString("Account", "");
+            SceneManager.LoadScene(0);
+        }
+    }
 }

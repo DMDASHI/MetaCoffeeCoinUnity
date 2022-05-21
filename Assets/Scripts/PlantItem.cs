@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlantItem : MonoBehaviour
+namespace Farm
 {
-    public PlantObject plant;
-
-    FarmManager farm;
-    public Image btnImage;
-    public Text btnTxt;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PlantItem : MonoBehaviour
     {
-        farm = FindObjectOfType<FarmManager>();
-    }
+        public PlantObject plant;
 
-    public void plantar()
-    {
-        farm.selectPlant(this);
-        Debug.Log("Bougth" + plant.plantName);
-    }
+        FarmManager farm;
+        public Image btnImage;
+        public Text btnTxt;
 
-   
+        // Start is called before the first frame update
+        void Start()
+        {
+            farm = FindObjectOfType<FarmManager>();
+        }
+
+        public void plantar()
+        {
+            farm.selectPlant(this);
+        }
+    }
 }

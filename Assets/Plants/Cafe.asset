@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlantObject
   plantName: Coffee
   plantStages:
-  - {fileID: -5500499418243019099, guid: ea7f329876cf93547be6aa01f3c89d54, type: 3}
-  - {fileID: -4499412901445083731, guid: 1711a71e23e6a734c836b98feade3042, type: 3}
-  - {fileID: -6827950885255421767, guid: 9ac821aed6007fd439c241a94f065917, type: 3}
-  - {fileID: -3536562804574438796, guid: 499ff846e179f8045960aa7977b5c34a, type: 3}
-  - {fileID: -2933993384908437591, guid: 7750c0c0e7fc59b408b01e701124fe76, type: 3}
-  - {fileID: 2417899183891269797, guid: 36c74caebb8c60a4889838f534599584, type: 3}
+  - {fileID: -4937727493290326485, guid: c14c83f65283258478dce5086df82f30, type: 3}
+  - {fileID: 4266948076940937407, guid: b32dac64e4390d94084a9297a7d80b43, type: 3}
+  - {fileID: -4926446288719739660, guid: de00841f7e6929f4796951aafccfb2ad, type: 3}
+  - {fileID: 2234245905610154272, guid: 1ed638c902233514a830cda2dddb98da, type: 3}
+  - {fileID: 6758674730855746508, guid: 8264975c283b022499342a6489d63b23, type: 3}
+  - {fileID: 1032633510203383982, guid: fe0bb1f6be33603418b32f0e62885af1, type: 3}
+  - {fileID: 270746121819836378, guid: fe8f45305e010734cb1329a4a8253aca, type: 3}
+  - {fileID: -2076525996530464776, guid: 432f1a4e7ca741f45bbc601ed2bc4092, type: 3}
+  - {fileID: 6902209940134341219, guid: e45b6098c52b66842bf13f8dcbfd94b8, type: 3}

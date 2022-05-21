@@ -3,86 +3,90 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FarmManager : MonoBehaviour
+namespace Farm
 {
-    public PlantItem selectedPlant;
-    public bool isPlanting = false;
-    public Color plantColor = Color.green;
-    public Color cancelColor = Color.red;
-    public bool isSelected = false;
-    public int selectedTool = 0;
-
-    public Image[] buttonsImg;
-    public Sprite normalBtn;
-    public Sprite selectedButton;
-    // Start is called before the first frame update
-    void Start()
+    public class FarmManager : MonoBehaviour
     {
+        public PlantItem selectedPlant;
+        private bool isPlanting = false;
+        Color plantColor = Color.green;
+        Color cancelColor = Color.red;
+        private bool isSelected = false;
+        public int selectedTool = 0;
 
-    }
+        public Image[] buttonsImg;
+        public Sprite normalBtn;
+        public Sprite selectedButton;
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
-    public void selectPlant(PlantItem newPlant)
-    {
-        if (selectedPlant == newPlant)
+        public void selectPlant(PlantItem newPlant)
         {
-            checkSelection();
-        }
-        else
-        {
-            checkSelection();
-            selectedPlant = newPlant;
-            selectedPlant.btnImage.color = cancelColor;
-            selectedPlant.btnTxt.text = "Cancel";
-            isPlanting = true;
-        }
-    }
-
-    public void selectTool(int toolNumber)
-    {
-        if(toolNumber == selectedTool)
-        {
-            checkSelection();
-        }
-        else
-        {
-            checkSelection();
-            isSelected = true;
-            selectedTool = toolNumber;
-            buttonsImg[toolNumber - 1].sprite = selectedButton;
-        }
-    }
-
-    void checkSelection()
-    {
-        if (isPlanting)
-        {
-            isPlanting = false;
-            if (selectedPlant != null)
+            if (selectedPlant == newPlant)
             {
-                selectedPlant.btnImage.color = plantColor;
-                selectedPlant.btnTxt.text = "Plant";
-                selectedPlant = null;
+                checkSelection();
+            }
+            else
+            {
+                checkSelection();
+                selectedPlant = newPlant;
+                selectedPlant.btnImage.color = cancelColor;
+                selectedPlant.btnTxt.text = "Cancel";
+                isPlanting = true;
             }
         }
-        if (isSelected)
+
+        public void selectTool(int toolNumber)
         {
-            if (selectedTool > 0)
+            if (toolNumber == selectedTool)
             {
-                buttonsImg[selectedTool - 1].sprite = normalBtn;
+                checkSelection();
             }
-            isSelected = false;
-            selectedTool = 0;
+            else
+            {
+                checkSelection();
+                isSelected = true;
+                selectedTool = toolNumber;
+                buttonsImg[toolNumber - 1].sprite = selectedButton;
+            }
+        }
+
+        void checkSelection()
+        {
+            if (isPlanting)
+            {
+                isPlanting = false;
+                if (selectedPlant != null)
+                {
+                    selectedPlant.btnImage.color = plantColor;
+                    selectedPlant.btnTxt.text = "Plant";
+                    selectedPlant = null;
+                }
+            }
+            if (isSelected)
+            {
+                if (selectedTool > 0)
+                {
+                    buttonsImg[selectedTool - 1].sprite = normalBtn;
+                }
+                isSelected = false;
+                selectedTool = 0;
+            }
+        }
+
+        public void transaction(string message)
+        {
+            Debug.Log(message);
+        }
+
+        public bool getPlanting()
+        {
+            return isPlanting;
+        }
+
+        public bool getSelectedT()
+        {
+            return isSelected;
         }
     }
 
-    public void transaction(string message)
-    {
-        Debug.Log(message);
-    }
 }

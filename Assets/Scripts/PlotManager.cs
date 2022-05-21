@@ -2,209 +2,217 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlotManager : MonoBehaviour
+namespace Farm
 {
-
-    bool isPlanted = false;
-
-    SpriteRenderer plant;
-    BoxCollider2D plantCollider;
-
-    FarmManager fm;
-    SpriteRenderer plot;
-    PlantObject selectedPlant;
-
-    int plantStage = 0;
-    float timer;
-
-    public Color availableColor = Color.green;
-    public Color unavailableColor = Color.red;
-
-    bool isDry = true;
-    bool isFertilized = false;
-    bool hasHerb = true;
-    public Sprite drySprite;
-    public Sprite normalSprite;
-    public Sprite herbSprite;
-
-
-    // Start is called before the first frame update
-    void Start()
+    public class PlotManager : MonoBehaviour
     {
-        plant = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        plantCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        fm = transform.parent.GetComponent<FarmManager>();
-        plot = transform.GetComponent<SpriteRenderer>();
-        plot.sprite = herbSprite;    
-    }
+        bool isPlanted = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isPlanted && !isDry)
+        SpriteRenderer plant;
+        BoxCollider2D plantCollider;
+
+        FarmManager fm;
+        SpriteRenderer plot;
+        PlantObject selectedPlant;
+
+        int plantStage = 0;
+        float timer;
+
+        Color availableColor = Color.green;
+        Color unavailableColor = Color.red;
+
+        bool isDry = true;
+        bool isFertilized = false;
+        bool hasHerb = true;
+
+        public Sprite drySprite;
+        public Sprite normalSprite;
+        public Sprite herbSprite;
+
+
+        // Start is called before the first frame update
+        void Start()
         {
-            timer -= Time.deltaTime;
+            plant = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            plantCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+            fm = transform.parent.GetComponent<FarmManager>();
+            plot = transform.GetComponent<SpriteRenderer>();
+            plot.sprite = herbSprite;
+        }
 
-            if (timer < 0 && plantStage < selectedPlant.plantStages.Length - 1)
+        // Update is called once per frame
+        void Update()
+        {
+            if (isPlanted && !isDry)
             {
-                timer = selectedPlant.generateRandom();
-                plantStage++;
-                
-                updatePlant();
-                
+                timer -= Time.deltaTime;
+
+                if (timer < 0 && plantStage < selectedPlant.plantStages.Length - 1)
+                {
+                    timer = selectedPlant.generateRandom();
+                    plantStage++;
+
+                    updatePlant();
+                }
+            }
+            else if(isDry && !hasHerb)
+            {
+                plot.sprite = drySprite;
             }
         }
-    }
-    private void OnMouseExit()
-    {
-        plot.color = Color.white;
-    }
-
-    private void OnMouseDown()
-    {
-        if (isPlanted)
+        private void OnMouseExit()
         {
-            if (plantStage == selectedPlant.plantStages.Length - 1 && !fm.isPlanting)
+            plot.color = Color.white;
+        }
+
+        private void OnMouseDown()
+        {
+            if (isPlanted)
             {
-                Harvest();
+                if (plantStage == selectedPlant.plantStages.Length - 1 && !fm.getPlanting())
+                {
+                    Harvest();
+                }
+
             }
-
-        }
-        else if (fm.isPlanting && isFertilized && !isDry)
-        {
-            Plant(fm.selectedPlant.plant);
-        }
-        if (fm.isSelected)
-        {
-            switch (fm.selectedTool)
+            else if (fm.getPlanting() && isFertilized && !isDry)
             {
-                case 1:
-                    if (!hasHerb)
-                    {
-                        isDry = false;
-                        plot.sprite = normalSprite;
-                        if (isPlanted)
+                Plant(fm.selectedPlant.plant);
+            }
+            if (fm.getSelectedT())
+            {
+                switch (fm.selectedTool)
+                {
+                    case 1:
+                        if (!hasHerb)
                         {
-                            updatePlant();
+                            isDry = false;
+                            plot.sprite = normalSprite;
+                            if (isPlanted)
+                            {
+                                updatePlant();
+                            }
                         }
-                    }
-                    break;
-                case 2:
-                    hasHerb = false;
-                    plot.sprite = drySprite;
-                    break;
-                case 3:
-                    isFertilized = true;
-                    break;
-                default:
-                    break;
-            }
-                
-        }
-    }
+                        break;
+                    case 2:
+                        hasHerb = false;
+                        plot.sprite = drySprite;
+                        break;
+                    case 3:
+                        if (!hasHerb)
+                        {
+                            isFertilized = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
-    private void OnMouseOver()
-    {
-        if (fm.isPlanting)
+            }
+        }
+
+        private void OnMouseOver()
         {
-            if (isPlanted || !isFertilized || isDry)
+            if (fm.getPlanting())
             {
-                plot.color = unavailableColor;
+                if (isPlanted || !isFertilized || isDry)
+                {
+                    plot.color = unavailableColor;
+                }
+                else
+                {
+                    plot.color = availableColor;
+                }
+            }
+            if (fm.getSelectedT())
+            {
+                switch (fm.selectedTool)
+                {
+                    case 1:
+                        if (!isDry || hasHerb)
+                        {
+                            plot.color = unavailableColor;
+                        }
+                        else
+                        {
+                            plot.color = availableColor;
+                        }
+                        break;
+                    case 2:
+                        if (hasHerb)
+                        {
+                            plot.color = availableColor;
+                        }
+                        else
+                        {
+                            plot.color = unavailableColor;
+                        }
+                        break;
+                    case 3:
+                        if (!isFertilized && !hasHerb)
+                        {
+                            plot.color = availableColor;
+                        }
+                        else
+                        {
+                            plot.color = unavailableColor;
+                        }
+                        break;
+                    default:
+                        plot.color = unavailableColor;
+                        break;
+                }
+            }
+        }
+        void Harvest()
+        {
+            isPlanted = false;
+            plant.gameObject.SetActive(false);
+            fm.transaction("Harvesting");
+            isDry = true;
+            isFertilized = false;
+            if (randomPlant())
+            {
+                plot.sprite = drySprite;
             }
             else
             {
-                plot.color = availableColor;
+                plot.sprite = herbSprite;
+                hasHerb = true;
             }
-        }
-        if (fm.isSelected)
-        {
 
-            switch (fm.selectedTool)
+        }
+
+        void Plant(PlantObject newPlant)
+        {
+            selectedPlant = newPlant;
+            fm.transaction("Planting");
+            isPlanted = true;
+            plantStage = 0;
+            updatePlant();
+            timer = selectedPlant.generateRandom();
+            plant.gameObject.SetActive(true);
+        }
+
+        void updatePlant()
+        {
+            if (isDry)
             {
-                case 1:
-                    if (!isDry || hasHerb)
-                    {
-                        plot.color = unavailableColor;
-                    }
-                    else
-                    {
-                        plot.color = availableColor;
-                    }
-                    break;
-                case 2:
-                    if (hasHerb)
-                    {
-                        plot.color = availableColor;
-                    }
-                    else
-                    {
-                        plot.color = unavailableColor;
-                    }
-                    break;
-                case 3:
-                    if (!isFertilized || hasHerb)
-                    {
-                        plot.color = availableColor;
-                    }
-                    else
-                    {
-                        plot.color = unavailableColor;
-                    }
-                    break;
-                default:
-                    plot.color = unavailableColor;
-                    break;
+                plot.sprite = drySprite;
             }
+            else
+            {
+                plant.sprite = selectedPlant.plantStages[plantStage];
+            }
+            plantCollider.size = plant.sprite.bounds.size;
+            isDry = randomPlant();
         }
-    }
-    void Harvest()
-    {
-        isPlanted = false;
-        plant.gameObject.SetActive(false);
-        fm.transaction("Harvesting");
-        isDry = true;
-        isFertilized = false;
-        if(randomPlant())
+
+        bool randomPlant()
         {
-            plot.sprite = drySprite;
+            var random = new System.Random();
+            return random.Next(2) == 1;
         }
-        else
-        {
-            plot.sprite = herbSprite;
-            hasHerb = true;
-        }
-        
     }
 
-    void Plant(PlantObject newPlant)
-    {
-        selectedPlant = newPlant;
-        fm.transaction("Planting");
-        isPlanted = true;
-        plantStage = 0;
-        updatePlant();
-        timer = selectedPlant.generateRandom();
-        plant.gameObject.SetActive(true);
-    }
-
-    void updatePlant()
-    {
-        if (isDry)
-        {
-            plot.sprite = drySprite; 
-        }
-        else
-        {
-            plant.sprite = selectedPlant.plantStages[plantStage];
-        }
-        plantCollider.size = plant.sprite.bounds.size;
-        isDry = randomPlant();
-        
-    }
-
-    bool randomPlant()
-    {
-        var random = new System.Random();
-        return random.Next(2) == 1;
-    }
 }

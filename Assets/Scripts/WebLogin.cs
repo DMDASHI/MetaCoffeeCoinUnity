@@ -20,24 +20,19 @@ public class WebLogin : MonoBehaviour
 
     public void OnLogin()
     {
-#if UNITY_WEBGL
         Web3Connect();
-#endif
         OnConnected();
     }
 
     async private void OnConnected()
     {
-#if UNITY_WEBGL
         account = ConnectAccount();
 
         while (account == "") {
             await new WaitForSeconds(1f);
             account = ConnectAccount(); 
         };
-#else
         account = PlayerPrefs.GetString("Account");
-#endif
         // save account for next scene
         PlayerPrefs.SetString("Account", account);
         // reset login message 
