@@ -7,9 +7,10 @@ Funcionalidades que están listas hasta el momento:
  - Mostrar la billetera del usuario
  - Mostrar balance de tokens del usuario
  - Cerrar sesión
- - Plantar
+ - Se muestra el balance de BTFs del usuario
+ - Plantar y se modifican los BTFs al realizar esta acción
  - Regar
- - Fertilizar
- - Cosechar
+ - Fertilizar y se modifican los BTFs al realizar esta acción
+ - Cosechar y se modifican los BTFs al realizar esta acción
 
 Estas funcionalidades se irán actualizando conforme avance el tiempo
