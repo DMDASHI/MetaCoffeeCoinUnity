@@ -30,6 +30,9 @@ namespace Farm
         public Sprite herbSprite;
 
 
+        private readonly int fertilyzingPrice = 10;
+        private readonly int herbPrice = 20;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -95,15 +98,20 @@ namespace Farm
                         }
                         break;
                     case 2:
-                        hasHerb = false;
-                        plot.sprite = drySprite;
-                        break;
-                    case 3:
-                        if (!hasHerb)
+                        if (fm.GetMoney() > herbPrice)
                         {
-                            isFertilized = true;
+                            hasHerb = false;
+                            plot.sprite = drySprite;
+                            fm.Transaction(-herbPrice);
                         }
                         break;
+                    case 3:
+                        if (!hasHerb && fm.GetMoney() > fertilyzingPrice)
+                        {
+                            isFertilized = true;
+                            fm.Transaction(-fertilyzingPrice);
+                        }
+                        break; 
                     default:
                         break;
                 }
@@ -139,7 +147,7 @@ namespace Farm
                         }
                         break;
                     case 2:
-                        if (hasHerb)
+                        if (hasHerb && fm.GetMoney() > herbPrice)
                         {
                             plot.color = availableColor;
                         }
@@ -149,7 +157,7 @@ namespace Farm
                         }
                         break;
                     case 3:
-                        if (!isFertilized && !hasHerb)
+                        if (!isFertilized && !hasHerb && fm.GetMoney() > fertilyzingPrice)
                         {
                             plot.color = availableColor;
                         }
