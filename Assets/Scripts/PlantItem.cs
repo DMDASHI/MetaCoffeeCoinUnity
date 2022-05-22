@@ -21,7 +21,7 @@ namespace Farm
 
         public void plantar()
         {
-            farm.selectPlant(this);
+            farm.SelectPlant(this);
         }
     }
 }

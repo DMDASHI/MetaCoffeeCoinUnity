@@ -49,13 +49,13 @@ namespace Farm
 
                 if (timer < 0 && plantStage < selectedPlant.plantStages.Length - 1)
                 {
-                    timer = selectedPlant.generateRandom();
+                    timer = selectedPlant.GenerateRandom();
                     plantStage++;
 
                     updatePlant();
                 }
             }
-            else if(isDry && !hasHerb)
+            else if (isDry && !hasHerb)
             {
                 plot.sprite = drySprite;
             }
@@ -69,17 +69,17 @@ namespace Farm
         {
             if (isPlanted)
             {
-                if (plantStage == selectedPlant.plantStages.Length - 1 && !fm.getPlanting())
+                if (plantStage == selectedPlant.plantStages.Length - 1 && !fm.GetPlanting())
                 {
                     Harvest();
                 }
 
             }
-            else if (fm.getPlanting() && isFertilized && !isDry)
+            else if (fm.GetPlanting() && isFertilized && !isDry && fm.selectedPlant.plant.GetBuyPrice() <= fm.GetMoney())
             {
                 Plant(fm.selectedPlant.plant);
             }
-            if (fm.getSelectedT())
+            if (fm.GetSelectedT())
             {
                 switch (fm.selectedTool)
                 {
@@ -113,7 +113,7 @@ namespace Farm
 
         private void OnMouseOver()
         {
-            if (fm.getPlanting())
+            if (fm.GetPlanting())
             {
                 if (isPlanted || !isFertilized || isDry)
                 {
@@ -124,7 +124,7 @@ namespace Farm
                     plot.color = availableColor;
                 }
             }
-            if (fm.getSelectedT())
+            if (fm.GetSelectedT())
             {
                 switch (fm.selectedTool)
                 {
@@ -168,10 +168,10 @@ namespace Farm
         {
             isPlanted = false;
             plant.gameObject.SetActive(false);
-            fm.transaction("Harvesting");
+            fm.Transaction(selectedPlant.GetSellPrice());
             isDry = true;
             isFertilized = false;
-            if (randomPlant())
+            if (RandomPlant())
             {
                 plot.sprite = drySprite;
             }
@@ -186,11 +186,11 @@ namespace Farm
         void Plant(PlantObject newPlant)
         {
             selectedPlant = newPlant;
-            fm.transaction("Planting");
+            fm.Transaction(-selectedPlant.GetBuyPrice());
             isPlanted = true;
             plantStage = 0;
             updatePlant();
-            timer = selectedPlant.generateRandom();
+            timer = selectedPlant.GenerateRandom();
             plant.gameObject.SetActive(true);
         }
 
@@ -205,10 +205,10 @@ namespace Farm
                 plant.sprite = selectedPlant.plantStages[plantStage];
             }
             plantCollider.size = plant.sprite.bounds.size;
-            isDry = randomPlant();
+            isDry = RandomPlant();
         }
 
-        bool randomPlant()
+        bool RandomPlant()
         {
             var random = new System.Random();
             return random.Next(2) == 1;

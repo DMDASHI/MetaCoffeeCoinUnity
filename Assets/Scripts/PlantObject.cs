@@ -10,7 +10,10 @@ namespace Farm
         public string plantName;
         public Sprite[] plantStages;
 
-        public float generateRandom()
+        private readonly int buyPrice = 10;
+        private readonly int sellPrice = 15;
+
+        public float GenerateRandom()
         {
             System.Random rand = new System.Random();
             double min = 1;
@@ -24,6 +27,17 @@ namespace Farm
             return f;
 
         }
+
+        public int GetBuyPrice()
+        {
+            return buyPrice;
+        }
+
+        public int GetSellPrice()
+        {
+            return sellPrice;
+        }
+
     }
 
 }

@@ -9,25 +9,35 @@ namespace Farm
     {
         public PlantItem selectedPlant;
         private bool isPlanting = false;
+
         Color plantColor = Color.green;
         Color cancelColor = Color.red;
+
         private bool isSelected = false;
+
         public int selectedTool = 0;
 
         public Image[] buttonsImg;
         public Sprite normalBtn;
         public Sprite selectedButton;
 
+        private int money = 100;
+        public Text moneyTxt;
 
-        public void selectPlant(PlantItem newPlant)
+        public void Start()
+        {
+            moneyTxt.text = money + " BTF";
+        }
+
+        public void SelectPlant(PlantItem newPlant)
         {
             if (selectedPlant == newPlant)
             {
-                checkSelection();
+                CheckSelection();
             }
             else
             {
-                checkSelection();
+                CheckSelection();
                 selectedPlant = newPlant;
                 selectedPlant.btnImage.color = cancelColor;
                 selectedPlant.btnTxt.text = "Cancel";
@@ -35,22 +45,22 @@ namespace Farm
             }
         }
 
-        public void selectTool(int toolNumber)
+        public void SelectTool(int toolNumber)
         {
             if (toolNumber == selectedTool)
             {
-                checkSelection();
+                CheckSelection();
             }
             else
             {
-                checkSelection();
+                CheckSelection();
                 isSelected = true;
                 selectedTool = toolNumber;
                 buttonsImg[toolNumber - 1].sprite = selectedButton;
             }
         }
 
-        void checkSelection()
+        void CheckSelection()
         {
             if (isPlanting)
             {
@@ -73,20 +83,27 @@ namespace Farm
             }
         }
 
-        public void transaction(string message)
+        public void Transaction(int value)
         {
-            Debug.Log(message);
+            money += value;
+            moneyTxt.text = money + " BTF";
         }
 
-        public bool getPlanting()
+        public bool GetPlanting()
         {
             return isPlanting;
         }
 
-        public bool getSelectedT()
+        public bool GetSelectedT()
         {
             return isSelected;
         }
+
+        public int GetMoney()
+        {
+            return money;
+        }
+
     }
 
 }
