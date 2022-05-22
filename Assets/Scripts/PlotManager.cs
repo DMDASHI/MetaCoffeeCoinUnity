@@ -98,7 +98,7 @@ namespace Farm
                         }
                         break;
                     case 2:
-                        if (fm.GetMoney() > herbPrice)
+                        if (fm.GetMoney() > herbPrice*2)
                         {
                             hasHerb = false;
                             plot.sprite = drySprite;
@@ -106,7 +106,7 @@ namespace Farm
                         }
                         break;
                     case 3:
-                        if (!hasHerb && fm.GetMoney() > fertilyzingPrice)
+                        if (!hasHerb && fm.GetMoney() > fertilyzingPrice*2)
                         {
                             isFertilized = true;
                             fm.Transaction(-fertilyzingPrice);
