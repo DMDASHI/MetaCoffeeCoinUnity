@@ -1,7 +1,8 @@
 name: Check Tests
 
-on: [pull_request]
-
+on: 
+  pull_request:
+    branches: [ main ]
 jobs:
   buildAndTestForLinuxBasedPlatforms:
     name: Build for Meta
