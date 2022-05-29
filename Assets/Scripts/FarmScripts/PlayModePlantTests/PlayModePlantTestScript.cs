@@ -10,7 +10,7 @@ public class PlayModePlantTestScript
     [Test]
     public void PlayModePlantTestScriptSimplePasses()
     {
-        // Use the Assert class to test conditions
+        Assert.AreEqual(2 + 2, 4);
     }
 
 }
