@@ -14,3 +14,5 @@ Funcionalidades que están listas hasta el momento:
  - Cosechar y se modifican los BTFs al realizar esta acción
 
 Estas funcionalidades se irán actualizando conforme avance el tiempo
+
+# Revisar el resto de la documentación dentro del Readme.md que está en la carpeta Assets
