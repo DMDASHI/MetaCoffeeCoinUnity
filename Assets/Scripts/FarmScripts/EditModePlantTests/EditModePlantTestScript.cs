@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Farm;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEditor;
 
-public class PlantTestScript
+namespace Farm
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void PlantTestScriptSimplePasses()
+    public class PlantTestScript
     {
-        // Use the Assert class to test conditions
+        // A Test behaves as an ordinary method
+        [Test]
+        public void PlantTestScriptSimplePasses()
+        {
+            GameObject fm = new GameObject();
+            fm.AddComponent<FarmManager>();
+            FarmManager build = fm.GetComponent<FarmManager>();
+            Assert.GreaterOrEqual(15, build.FarmMoneyTest());
+            // Use the Assert class to test conditions
+        }
+
     }
-
-
-
 }
+

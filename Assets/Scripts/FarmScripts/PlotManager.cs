@@ -89,6 +89,7 @@ namespace Farm
                     case 1:
                         if (!hasHerb)
                         {
+                            Debug.Log("Plot Regada");
                             isDry = false;
                             plot.sprite = normalSprite;
                             if (isPlanted)
@@ -98,16 +99,18 @@ namespace Farm
                         }
                         break;
                     case 2:
-                        if (fm.GetMoney() > herbPrice + 20)
+                        if (fm.GetMoney() > herbPrice)
                         {
+                            Debug.Log("Plot deshierbada");
                             hasHerb = false;
                             plot.sprite = drySprite;
-                            fm.Transaction(-herbPrice);
+                            fm.Transaction(-herbPrice); 
                         }
                         break;
                     case 3:
-                        if (!hasHerb && fm.GetMoney() > fertilyzingPrice + 10)
+                        if (!hasHerb && fm.GetMoney() > fertilyzingPrice)
                         {
+                            Debug.Log("Plot fertilizada");
                             isFertilized = true;
                             fm.Transaction(-fertilyzingPrice);
                         }
@@ -179,6 +182,7 @@ namespace Farm
             fm.Transaction(selectedPlant.GetSellPrice());
             isDry = true;
             isFertilized = false;
+            Debug.Log("Planta recolectada");
             if (RandomPlant())
             {
                 plot.sprite = drySprite;
@@ -193,6 +197,7 @@ namespace Farm
 
         void Plant(PlantObject newPlant)
         {
+            Debug.Log("Se plantó");
             selectedPlant = newPlant;
             fm.Transaction(-selectedPlant.GetBuyPrice());
             isPlanted = true;
